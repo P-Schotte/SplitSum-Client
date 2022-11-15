@@ -20,6 +20,9 @@ import { GlobalProvider } from "./src/components/context/index.js";
 import { useFonts } from 'expo-font';
 const Tab = createBottomTabNavigator();
 
+// Initialize Firebase
+
+
 
 // const firebaseConfig = {
 //   apiKey: 'api-key',
@@ -32,13 +35,47 @@ const Tab = createBottomTabNavigator();
 //   measurementId: 'G-measurement-id',
 // };
 
-// const app = initializeApp(firebaseConfig);
-
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const Stack = createNativeStackNavigator();
 // const navigation = useNavigation();
 
 
 function App(){
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // useEffect(() => {
+    //   setTimeout(() => {
+        // firebase
+        //   .auth()
+        //   .signInWithEmailAndPassword("stojack.hannah@gmail.com", "test123")
+        //   .then((user) => {
+        //     setIsAuthenticated(true);
+        //   })
+
+
+      //   signInWithEmailAndPassword(auth, "stojack.hannah@gmail.com", "test123")
+      // .then((user) => {
+      //   console.log(user);
+      //   setIsAuthenticated(true);
+      // })
+      //     .catch((e) => {
+      //       console.error(e);
+      //     });
+      // }, 2000);
+ 
+      useEffect(() => {
+        setTimeout(() => {
+          signInWithEmailAndPassword(auth, "<email>", "<password>")
+          .then((user) => {
+            console.log(user);
+            setIsAuthenticated(true);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+        }, 5000);
+      }, []);
+
   const [loaded] = useFonts({
     "SF-Pro-Display-Bold": require("./assets/sfwin-master/SFPro/OpenType/SF-Pro-Display-Bold.otf"),
     "SF-Pro-Display-Heavy": require("./assets/sfwin-master/SFPro/OpenType/SF-Pro-Display-Heavy.otf"),
@@ -48,19 +85,7 @@ function App(){
     return null;
   }
   // export default function App() {
-  //   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       firebase
-  //         .auth()
-  //         .signInWithEmailAndPassword("stojack.hannah@gmail.com", "test123")
-  //         .then((user) => {
-  //           setIsAuthenticated(true);
-  //         })
-  //         .catch((e) => {
-  //           console.log(e);
-  //         });
-  //     }, 2000);
+  //   
   //   }, []);
   
     return (
